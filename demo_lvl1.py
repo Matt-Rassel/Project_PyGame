@@ -2,12 +2,11 @@ import pygame
 import os
 import sys
 import math
-
-SCREEN_WIDTH = 810
-SCREEN_HEIGHT = 507
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 531
 TARGET_HEIGHT = 100
 TARGET_SIZE = 30  # Размер спрайта
-BULLET_SPEED = 10
+BULLET_SPEED = 5
 NUM_TARGETS = 10
 TARGET_SPAWN_DELAY = 3200
 PLAYER_SPEED = 5
@@ -36,11 +35,11 @@ def load_image(name, colorkey=None):
 class Target(pygame.sprite.Sprite):
     def __init__(self, x):
         super().__init__()
-        self.image = load_image("ship2.png")  # Или создайте прямоугольник, как в предыдущем примере
-        self.rect = self.image.get_rect(topleft=(x, 100))
+        self.image = load_image("ship.png")  # Или создайте прямоугольник, как в предыдущем примере
+        self.rect = self.image.get_rect(topleft=(x, 25))
         self.speed = 3  # Скорость движения
         self.direction = -1  # 1 - вправо, -1 - влево
-
+        self.image.set_colorkey((255,255, 255))
     def update(self):
         self.rect.x += self.speed * self.direction
 
@@ -69,8 +68,9 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = load_image("player1.png")  # Замените на имя вашего файла
-        self.rect = self.image.get_rect(bottomleft=(50, 300))
+        self.rect = self.image.get_rect(bottomleft=(50, 250))
         self.speed = PLAYER_SPEED
+        self.image.set_colorkey((0, 0, 0))
 
     def update(self):  # Убрали аргумент keys
         keys = pygame.key.get_pressed()
@@ -85,7 +85,7 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Shooting Range")
     clock = pygame.time.Clock()
-    background_image = load_image("sea.gif")  # Замените "background.png" на имя вашего файла
+    background_image = load_image("sea3.png")  # Замените "background.png" на имя вашего файла
 
     all_sprites = pygame.sprite.Group()
     targets = pygame.sprite.Group()
